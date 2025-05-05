@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настольный теннис | Арена Топ-Спин</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background: #f5f5f5;
+            color: #1a1a1a;
+        }
+
+        /* Navbar */
+        .custom-navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-logo img {
+            height: 60px;
+            max-width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-shrink: 1;
+            min-width: 0;
+            position: relative;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #0055a4;
+        }
+
+        .contact-btn {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 0.6rem 1.8rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .contact-btn:hover {
+            background: #0055a4;
+            color: #ffffff;
+        }
+
+        .hamburger {
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            display: none;
+            margin-left: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger:hover {
+            transform: rotate(90deg);
+        }
+
+        .nav-utility {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+        .nav-links li.dropdown:hover .dropdown-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            padding: 0.75rem 0;
+            min-width: 300px;
+            z-index: 1001;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .dropdown-menu li {
+            padding: 0.5rem 1.5rem;
+        }
+
+        .dropdown-menu li a {
+            color: #333333;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            display: block;
+            white-space: normal;
+            text-transform: uppercase;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .dropdown-menu li a:hover {
+            color: #0055a4;
+            background: rgba(0, 85, 164, 0.1);
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: rgba(0, 0, 0, 0.95);
+                width: 100%;
+                padding: 1.5rem;
+                gap: 1.5rem;
+                z-index: 999;
+                border-radius: 0 0 8px 8px;
+            }
+
+            .nav-links.show {
+                display: flex !important;
+            }
+
+            .nav-links li a {
+                font-size: 1.2rem;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links li .dropdown-menu {
+                position: static;
+                background: #ffffff;
+                box-shadow: none;
+                padding: 0.5rem 1rem;
+                display: none;
+                min-width: 100%;
+                border-radius: 4px;
+            }
+
+            .nav-links li.show-submenu .dropdown-menu {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .custom-navbar {
+                padding: 0.8rem 1.5rem;
+            }
+
+            .nav-logo img {
+                height: 50px;
+            }
+
+            .contact-btn {
+                padding: 0.5rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Content Sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            background: #f8faff;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        section h1, section h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            color: #1a1a1a;
+            border-bottom: 3px solid #0055a4;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        section p {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            font-weight: 400;
+            line-height: 1.8;
+            color: #333333;
+            margin-bottom: 1rem;
+        }
+
+        section a {
+            color: #0055a4;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+
+        section a:hover {
+            color: #e6f0ff;
+        }
+
+        section ul {
+            list-style: none;
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        section ul li {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            font-weight: 400;
+            line-height: 1.8;
+            color: #333333;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        section ul li::before {
+            content: '🏓';
+            position: absolute;
+            left: -1.5rem;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            section h1, section h2 {
+                font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            }
+
+            section p, section ul li {
+                font-size: clamp(0.9rem, 2vw, 1rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            section {
+                padding: 1rem;
+            }
+        }
+
+        /* Card Section */
+        .card-section {
+            margin-top: 2rem;
+        }
+
+        .card {
+            display: grid;
+            grid-template-columns: min(100%, 400px) 1fr;
+            gap: 1.5rem;
+            background: #f8faff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 85, 164, 0.3);
+        }
+
+        .card img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-content h2 {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .card-content p {
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .card img {
+                max-height: 250px;
+            }
+
+            .card-content {
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1rem;
+            }
+
+            .card img {
+                max-height: 200px;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            padding: 4rem 2rem 2rem;
+            color: #e0e0e0;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 2rem;
+        }
+
+        .footer-section {
+            text-align: left;
+        }
+
+        .footer-logo {
+            width: 150px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.6;
+            color: #bbbbbb;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #0055a4;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            display: inline-block;
+        }
+
+        .footer-social img {
+            width: 32px;
+            height: 32px;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .footer-social img:hover {
+            transform: scale(1.2);
+            filter: brightness(1) hue-rotate(200deg);
+        }
+
+        .footer-contact p {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #bbbbbb;
+            padding-top: 2rem;
+            border-top: 1px solid #333333;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                padding: 3rem 1.5rem 1.5rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-section {
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="custom-navbar">
+        <div class="nav-logo">
+            <a href="index.html">
+                <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" />
+            </a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="players.html">Игроки</a></li>
+            <li class="dropdown">
+                <a href="aboutclub.html">О клубе</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Цены на услуги клуба настольного тенниса</a></li>
+                    <li><a href="#">Расписание зала</a></li>
+                    <li><a href="#">Подарочный сертификат</a></li>
+                    <li><a href="#">Массаж</a></li>
+                    <li><a href="#">Правила посещения</a></li>
+                    <li><a href="#">Безопасность</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="tabletennis.html">Настольного тенниса</a>
+                <ul class="dropdown-menu">
+                    <li><a href="about_table_tennis.html">О настольном теннисе</a></li>
+                    <li><a href="table_tennis_club.html">Клуб настольного тенниса</a></li>
+                    <li><a href="tables_rental.html">Аренда столов для настольного тенниса</a></li>
+                    <li><a href="coaches.html">Тренеры по настольному теннису</a></li>
+                    <li><a href="training_in_table_tennis.html">Тренировки по настольному теннису</a></li>
+                    <li><a href="table_tennis_for_children.html">Настольный теннис для детей</a></li>
+                    <li><a href="table_tennis_for_adults.html">Настольный теннис для взрослых</a></li>
+                    <li><a href="tournaments.html">Турниры по настольного тенниса</a></li>
+                    <li><a href="corporate_table_tennis.html">Корпоративные мероприятия</a></li>
+                    <li><a href="corp_com_tour.html">Корпоративный командный турнир</a></li>
+                </ul>
+            </li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="tournaments.html">Турниры</a></li>
+        </ul>
+        <div class="nav-utility">
+            <a href="contacts.html" class="contact-btn">Контакты</a>
+            <button class="hamburger" id="navToggle">☰</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section>
+            <h1>Настольный теннис</h1>
+            <p>Настольный теннис является активным видом спорта, в котором задействуются не только физические, но также инициативные возможности учащихся. Кроме того, это отличный отдых для души и тела, ведь где еще можно так хорошо провести время, как не за теннисным столом? Занимаясь данным спортом, доступно сбросить лишний вес, улучшить координацию движений, научиться думать на несколько шагов вперед. Настольный теннис подходит взрослым и детям, он универсален, поэтому так популярен всегда и везде.</p>
+        </section>
+
+        <section class="card-section">
+            <a href="about_table_tennis.html" class="card" aria-label="Узнать больше о настольном теннисе">
+                <img src="TOPSPIN/about_table_tennis_normal_01.jpg" alt="Настольный теннис - О настольном теннисе">
+                <div class="card-content">
+                    <h2>О настольном теннисе</h2>
+                    <p>Эта игра относится к олимпийским видам спорта, она увлекательна, азартна, интересна и полезна. Научиться настольному теннису может каждый, главное – захотеть. Независимо от физической формы, профессии и возраста, вы сможете с удовольствием погрузиться в игру, забыв о проблемах на работе и невзгодах в личной жизни. Игра укрепит сосудистую и дыхательную системы, поможет сбросить лишний вес, научит правильно рассчитывать свои возможности и улучшит координацию движений. С помощью настольного тенниса легко снять стресс и получить море положительных эмоций, можно познакомиться с новыми людьми и сблизиться со старыми знакомыми.</p>
+                </div>
+            </a>
+
+            <a href="table_tennis_club.html" class="card" aria-label="Узнать больше о клубе настольного тенниса">
+                <img src="TOPSPIN/table_tennis_club_normal_01.jpg" alt="Настольный теннис - Клуб Арена Топ-Спин">
+                <div class="card-content">
+                    <h2>Клуб настольного тенниса</h2>
+                    <p>Клуб «Арена Топ-Спин» в СПб предлагает просторный и комфортный зал для настольного тенниса. Здесь имеются все необходимые возможности для профессиональных и любительских тренировок, это мужские, женские и детские раздевалки с душевыми кабинами и сауной, а также зона отдыха с напитками, телевизором и wi-fi. Под окнами клуба удобная парковка для автомобилей посетителей. Здесь проводятся персональные и групповые занятия с лучшими тренерами, возможно участие в соревнованиях отечественного и международного уровня. Гостям клуба предлагается проведение корпоративных мероприятий.</p>
+                </div>
+            </a>
+
+            <a href="tables_rental.html" class="card" aria-label="Узнать больше об аренде столов">
+                <img src="TOPSPIN/tables_rental_normal_01.jpg" alt="Настольный теннис - Аренда столов">
+                <div class="card-content">
+                    <h2>Аренда столов для настольного тенниса</h2>
+                    <p>Клуб "Арена Топ-Спин" является самым большим профильным клубом в Санкт-Петербурге на 21 стол и одним из самых больших клубов по настольному теннису в Европе. Любой желающий, не зависимо от уровня игры, может арендовать стол для настольного тенниса в нашем клубе. Все столы профессиональные и подходят для проведения как российских, так и мировых чемпионатов. В нашем зале используются столы только известных мировых брендов, таких как Butterfly, Donic и Joola, отвечающих самым высоким требованиям для проведения тренировок, сборов и соревнований высокого уровня. Каждая игровая зона по периметру огорожена сеткой, чтобы спортсмены из соседних секций не мешали друг другу. Размер игровых зон соответствует международным стандартам настольного тенниса.</p>
+                </div>
+            </a>
+
+            <a href="coaches.html" class="card" aria-label="Узнать больше о тренерах">
+                <img src="TOPSPIN/table_tennis_coaches_normal_01.jpg" alt="Настольный теннис - Тренеры">
+                <div class="card-content">
+                    <h2>Тренеры по настольному теннису</h2>
+                    <p>Если вы решили просто наслаждаться игрой с друзьями, арендуйте стол, ракетки и мячи. Настольный теннис доставит вам массу удовольствия. В случае профессиональной заинтересованности в занятиях воспользуйтесь помощью тренеров. Специалисты смогут организовать обучающий процесс максимально быстро и безопасно. Они позаботятся о том, чтобы вы избежали проблем, которые могут докучать новичкам, и чрезвычайно оперативно достигли необходимого результата. Наиболее полезны и эффективны индивидуальные занятия.</p>
+                </div>
+            </a>
+
+            <a href="training_in_table_tennis.html" class="card" aria-label="Узнать больше о тренировках">
+                <img src="TOPSPIN/training_in_table_tennis_normal_01.jpg" alt="Настольный теннис - Тренировки">
+                <div class="card-content">
+                    <h2>Тренировки по настольному теннису</h2>
+                    <p>Тренировки по настольному теннису поводят профессионалы, имеющие за плечами огромный опыт обучения. Занятие могут быть как индивидуального, так и группового формата. Вы можете купить абонемент на месяц или на год и тренироваться по заранее установленному графику, который подходит лично вам. Поскольку настольный теннис подходит всем без исключения, после определения общего физического состояния и уровня профессионализма (новичок, специалист, профессионал) можно сразу приступать к занятиям.</p>
+                </div>
+            </a>
+
+            <a href="table_tennis_for_children.html" class="card" aria-label="Узнать больше о настольном теннисе для детей">
+                <img src="TOPSPIN/table_tennis_for_children_normal_01.jpg" alt="Настольный теннис - Для детей">
+                <div class="card-content">
+                    <h2>Настольный теннис для детей</h2>
+                    <p>Дети, как никто другой, нуждаются в регулярных активных занятиях спортом, и настольный теннис отлично для этого подходит. Наш клуб приглашает ребят разного возраста для тренировок, которые развивают ловкость, гибкость, внимание, глазомер и реакцию. Сперва дети могут наблюдать за игрой профессионалов, потом можно заниматься самостоятельно и принимать участие в местных соревнованиях. А в будущем, кто знает, может именно ваш ребенок станет новым олимпийским чемпионом в данном виде спорта.</p>
+                </div>
+            </a>
+
+            <a href="table_tennis_for_adults.html" class="card" aria-label="Узнать больше о настольном теннисе для взрослых">
+                <img src="TOPSPIN/table_tennis_for_adults_normal_01.jpg" alt="Настольный теннис - Для взрослых">
+                <div class="card-content">
+                    <h2>Настольный теннис для взрослых</h2>
+                    <p>Часто взрослые не находят времени на занятия спортом, что приводит к весьма плачевным последствиям – потере привлекательности фигуры, проблемам со здоровьем, набору лишнего веса. Все эти задачи можно решить одним способом – добавить нотку активности в свою жизнь. А что может быть более азартным и физически активным, чем игра в настольный теннис? Если вы решили заняться своей физической формой вплотную или просто хотите хорошо провести время с друзьями, тренировки по настольному теннису является наиболее актуальным и популярным решением. Если же вы хотите посвятить себя данному виду спорта и добиться потрясающих результатов, занятия с профессиональными тренерами помогут развить свой талант.</p>
+                </div>
+            </a>
+
+            <a href="tournaments.html" class="card" aria-label="Узнать больше о турнирах">
+                <img src="TOPSPIN/table_tennis_tournaments_normal_01.jpg" alt="Настольный теннис - Турниры">
+                <div class="card-content">
+                    <h2>Турниры по настольному теннису</h2>
+                    <p>Занятия в нашем клубе подразумевают участие в турнирах по настольному теннису. Это может быть любительское или профессиональное соревнование, которое проходит на местном или даже международном уровне. Мы создаем все условия для того, чтобы заниматься любимым видом спорта вам было легко, интересно и комфортно. Информация о турнирах представлена на сайте и социальных сетях клуба.</p>
+                </div>
+            </a>
+
+            <a href="corporate_table_tennis.html" class="card" aria-label="Узнать больше о корпоративных мероприятиях">
+                <img src="TOPSPIN/corporate_table_tennis_normal_01.jpg" alt="Настольный теннис - Корпоративные мероприятия">
+                <div class="card-content">
+                    <h2>Корпоративные мероприятия</h2>
+                    <p>Лучшие спортивные корпоративные мероприятия проходят именно в профильных клубах. И «Арена Топ-Спин» предлагает вам подобную услугу. У нас вы сможете получить незабываемые эмоции, посоревноваться с коллегами по работе, ближе узнать их, научиться играть в настольный теннис. Увлекательное корпоративное мероприятие обеспечено всем участникам! Совместите массу положительных эмоций с пользой для здоровья, запланировав увлекательное спортивное мероприятие в нашем клубе.</p>
+                </div>
+            </a>
+
+            <a href="corp_com_tour.html" class="card" aria-label="Узнать больше о корпоративном турнире">
+                <img src="TOPSPIN/corp_com_tour_normal_01.jpg" alt="Настольный теннис - Корпоративный турнир">
+                <div class="card-content">
+                    <h2>Корпоративный командный турнир</h2>
+                    <p>Организуйте корпоративный командный турнир по настольному теннису в клубе «Арена Топ-Спин»! Это отличный способ сплотить коллектив, развить командный дух и получить заряд положительных эмоций. Наши профессиональные тренеры и просторные залы обеспечат комфортное проведение мероприятия, а турнирный формат добавит азарта и соревновательного духа.</p>
+                </div>
+            </a>
+        </section>
+
+        <section>
+            <p>Настольный теннис – это настоящее удовольствие, с этим согласятся все, кто держал ракетку в руках и испытывал тот самый вихрь эмоций в процессе игры, или же просто наблюдал за активными действиями других игроков. Когда смотришь со стороны, кажется, что данный вид спорта является легким и не требующим особых усилий, однако это не так. Удержать мяч даже несколько минут между двумя ракетками – уже достижение, требующее от участников особых навыков, внимания, точной координации движений. Чтобы научиться подобной игре, необходимы регулярные тренировки, они доступны в нашем клубе, приглашаем вас присоединиться к нашим занятиям!</p>
+            <a href="tabletennis/schedule_table_tennis.html">Расписание зала настольного тенниса</a><br>
+            <a href="tabletennis/prices_table_tennis.html">Цены зала настольного тенниса</a><br>
+            <a href="tabletennis/table_tennis_coaches.html">Тренеры зала настольного тенниса</a><br>
+            <a href="aboutclub/giftcertificate.html">Подарочный сертификат</a><br>
+        </section>
+    </main>
+
+    <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <img src="TOPSPIN/logo_arena.png" alt="Logo" class="footer-logo">
+        <p class="footer-description">
+          Арена Топ-Спин – ваш центр настольного тенниса, где страсть к игре сочетается с первоклассным оборудованием и профессиональным коучингом.
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3>Быстрые ссылки</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="aboutclub.html">О клубе</a></li>
+          <li><a href="tabletennis.html">Настольный теннис</a></li>
+          <li><a href="tournaments.html">Турниры</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Контакты</h3>
+        <div class="footer-contact">
+          <p>Спортивный клуб «Арена Топ-Спин»</p>
+          <p>СПб, Левашовский пр., д. 13 А</p>
+          <p>Тел: +7(812) 942-81-40</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://vk.com/arena.topspin"><img src="topspin/vk-icon.svg" alt="VK"></a>
+          <a href="https://www.instagram.com/scarenatopspin/"><img src="topspin/instagram-icon.svg" alt="Instagram"></a>
+          <a href="https://www.youtube.com/channel/UCcJzy5K9osLLIifcMEmG4xw"><img src="topspin/youtube-icon.svg" alt="YouTube"></a>
+          <a href="https://wa.me/79219428140"><img src="topspin/whatsapp-icon.svg" alt="WhatsApp"></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      2005-2025 © Все права защищены. Лицензирование
+    </div>
+  </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('navToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
+
+            const dropdowns = document.querySelectorAll('.nav-links li.dropdown');
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 1024) {
+                        e.preventDefault();
+                        dropdown.classList.toggle('show-submenu');
+                    }
+                });
+            });
+
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.custom-navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+                } else {
+                    navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

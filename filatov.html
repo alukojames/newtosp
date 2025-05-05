@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Филатов Василий - Профиль Тренера | Арена Топ-Спин</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+    }
+
+    /* Navbar */
+    .custom-navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-logo img {
+      height: 60px;
+      max-width: 100%;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-shrink: 1;
+      min-width: 0;
+      position: relative;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      color: #0055a4;
+    }
+
+    .contact-btn {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 0.6rem 1.8rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .contact-btn:hover {
+      background: #0055a4;
+      color: #ffffff;
+    }
+
+    .hamburger {
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      display: none;
+      margin-left: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .hamburger:hover {
+      transform: rotate(90deg);
+    }
+
+    .nav-utility {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    .nav-links li.dropdown:hover .dropdown-menu {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      padding: 0.75rem 0;
+      min-width: 300px;
+      z-index: 1001;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .dropdown-menu li {
+      padding: 0.5rem 1.5rem;
+    }
+
+    .dropdown-menu li a {
+      color: #333333;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 400;
+      display: block;
+      white-space: normal;
+      text-transform: uppercase;
+      transition: color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .dropdown-menu li a:hover {
+      color: #0055a4;
+      background: rgba(0, 85, 164, 0.1);
+    }
+
+    @media (max-width: 1024px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: rgba(0, 0, 0, 0.95);
+        width: 100%;
+        padding: 1.5rem;
+        gap: 1.5rem;
+        z-index: 999;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .nav-links.show {
+        display: flex !important;
+      }
+
+      .nav-links li a {
+        font-size: 1.2rem;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .nav-links li .dropdown-menu {
+        position: static;
+        background: #ffffff;
+        box-shadow: none;
+        padding: 0.5rem 1rem;
+        display: none;
+        min-width: 100%;
+        border-radius: 4px;
+      }
+
+      .nav-links li.show-submenu .dropdown-menu {
+        display: block;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .custom-navbar {
+        padding: 0.8rem 1.5rem;
+      }
+
+      .nav-logo img {
+        height: 50px;
+      }
+
+      .contact-btn {
+        padding: 0.5rem 1.5rem;
+        font-size: 1rem;
+      }
+    }
+
+    /* Content Sections */
+    .page-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .coach-header {
+      display: flex;
+      gap: 2rem;
+      background: #f8faff;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    .portrait {
+      flex: 0 0 auto;
+    }
+
+    .portrait img {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      background-image: linear-gradient(90deg, #bff9ea, #c0e4fe);
+      padding: 5px;
+      background-color: white;
+    }
+
+    .info {
+      flex: 1;
+    }
+
+    .info h1 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: #1a1a1a;
+      border-bottom: 3px solid #0055a4;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .achievements {
+      list-style: none;
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .achievements li {
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      font-weight: 400;
+      line-height: 1.8;
+      color: #333333;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .achievements li::before {
+      content: '🏓';
+      position: absolute;
+      left: -1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .price {
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      font-weight: 400;
+      line-height: 1.8;
+      color: #333333;
+      margin-bottom: 1rem;
+    }
+
+    .price strong {
+      color: #0055a4;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .page-wrapper {
+        padding: 1.5rem;
+      }
+
+      .coach-header {
+        flex-direction: column;
+        align-items: center;
+        padding: 1.5rem;
+      }
+
+      .portrait img {
+        max-width: 250px;
+      }
+
+      .info h1 {
+        font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+        text-align: center;
+      }
+
+      .achievements li, .price {
+        font-size: clamp(0.9rem, 2vw, 1rem);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-wrapper {
+        padding: 1rem;
+      }
+
+      .coach-header {
+        padding: 1rem;
+      }
+
+      .portrait img {
+        max-width: 200px;
+      }
+    }
+
+    /* Footer */
+    .footer {
+      background: #1a1a1a;
+      padding: 4rem 2rem 2rem;
+      color: #e0e0e0;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-bottom: 2rem;
+    }
+
+    .footer-section {
+      text-align: left;
+    }
+
+    .footer-logo {
+      width: 150px;
+      margin-bottom: 1rem;
+    }
+
+    .footer-description {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: #bbbbbb;
+    }
+
+    .footer-section h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #4da8ff;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .footer-social a {
+      display: inline-block;
+    }
+
+    .footer-social img {
+      width: 32px;
+      height: 32px;
+      filter: brightness(0) invert(1);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .footer-social img:hover {
+      transform: scale(1.2);
+      filter: brightness(1) hue-rotate(200deg);
+    }
+
+    .footer-contact p {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-contact a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-contact a:hover {
+      color: #4da8ff;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #bbbbbb;
+      padding-top: 2rem;
+      border-top: 1px solid #333333;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        padding: 3rem 1.5rem 1.5rem;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-section {
+        text-align: center;
+      }
+
+      .footer-social {
+        justify-content: center;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="custom-navbar">
+    <div class="nav-logo">
+      <a href="index.html">
+        <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" />
+      </a>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Главная</a></li>
+      <li><a href="players.html">Игроки</a></li>
+      <li class="dropdown">
+        <a href="aboutclub.html">О клубе</a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Цены на услуги клуба настольного тенниса</a></li>
+          <li><a href="#">Расписание зала</a></li>
+          <li><a href="#">Подарочный сертификат</a></li>
+          <li><a href="#">Массаж</a></li>
+          <li><a href="#">Правила посещения</a></li>
+          <li><a href="#">Безопасность</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="tabletennis.html">Настольного тенниса</a>
+        <ul class="dropdown-menu">
+          <li><a href="about_table_tennis.html">О настольном теннисе</a></li>
+          <li><a href="table_tennis_club.html">Клуб настольного тенниса</a></li>
+          <li><a href="tables_rental.html">Аренда столов для настольного тенниса</a></li>
+          <li><a href="coaches.html">Тренеры по настольному теннису</a></li>
+          <li><a href="training_in_table_tennis.html">Тренировки по настольному теннису</a></li>
+          <li><a href="table_tennis_for_children.html">Настольный теннис для детей</a></li>
+          <li><a href="table_tennis_for_adults.html">Настольный теннис для взрослых</a></li>
+          <li><a href="tournaments.html">Турниры по настольного тенниса</a></li>
+          <li><a href="corporate_table_tennis.html">Корпоративные мероприятия</a></li>
+          <li><a href="corp_com_tour.html">Корпоративный командный турнир</a></li>
+        </ul>
+      </li>
+      <li><a href="contacts.html">Контакты</a></li>
+      <li><a href="tournaments.html">Турниры</a></li>
+    </ul>
+    <div class="nav-utility">
+      <a href="contacts.html" class="contact-btn">Контакты</a>
+      <button class="hamburger" id="navToggle">☰</button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <section class="coach-header">
+      <div class="portrait">
+        <img src="TOPSPIN/coach_filatov_vasiliy_big_01.jpg" alt="Филатов Василий">
+      </div>
+      <div class="info">
+        <h1>Филатов Василий</h1>
+        <ul class="achievements">
+          <li>Персональный тренер</li>
+          <li>Многократный победитель и призер ЦФО в личном, парном, смешанном парном и командном разрядах</li>
+          <li>Многократный призер кубка России в командных чемпионатах</li>
+          <li>Многократный победитель КЧР Суперлига в команде</li>
+          <li>Победитель про тура в парном разряде «Нигерия Опен»</li>
+          <li>Победитель и призер всероссийских и областных соревнований</li>
+          <li>Игровой стаж более 22 года</li>
+          <li>Тренерский стаж более 12 лет</li>
+        </ul>
+        <p class="price">Стоимость персональной тренировки: <strong>3000 руб./час.</strong></p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="footer-logo">
+        <p class="footer-description">
+          Арена Топ-Спин – ваш центр настольного тенниса, где страсть к игре сочетается с первоклассным оборудованием и профессиональным коучингом.
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3>Быстрые ссылки</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="aboutclub.html">О клубе</a></li>
+          <li><a href="tabletennis.html">Настольный теннис</a></li>
+          <li><a href="tournaments.html">Турниры</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Контакты</h3>
+        <div class="footer-contact">
+          <p>Спортивный клуб «Арена Топ-Спин»</p>
+          <p>СПб, Левашовский пр., д. 13 А</p>
+          <p>Тел: <a href="tel:+78129428140" aria-label="Позвонить в Арена Топ-Спин">+7(812) 942-81-40</a></p>
+        </div>
+        <div class="footer-social">
+          <a href="https://vk.com/arena.topspin"><img src="TOPSPIN/vk-icon.svg" alt="VK"></a>
+          <a href="https://www.instagram.com/scarenatopspin/"><img src="TOPSPIN/instagram-icon.svg" alt="Instagram"></a>
+          <a href="https://www.youtube.com/channel/UCcJzy5K9osLLIifcMEmG4xw"><img src="TOPSPIN/youtube-icon.svg" alt="YouTube"></a>
+          <a href="https://wa.me/79219428140"><img src="TOPSPIN/whatsapp-icon.svg" alt="WhatsApp"></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      2005-2025 © Все права защищены. Лицензирование
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Navbar functionality
+      const hamburger = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+      });
+
+      const dropdowns = document.querySelectorAll('.nav-links li.dropdown');
+      dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', (e) => {
+          if (window.innerWidth <= 1024) {
+            e.preventDefault();
+            dropdown.classList.toggle('show-submenu');
+          }
+        });
+      });
+
+      window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.custom-navbar');
+        if (window.scrollY > 50) {
+          navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+        } else {
+          navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

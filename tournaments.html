@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Турниры по настольному теннису | Арена Топ-Спин</title>
+  <meta name="description" content="Турниры по настольному теннису для любителей и профессионалов в Санкт-Петербурге. Присоединяйтесь к соревнованиям в клубе Арена Топ-Спин!">
+  <meta name="keywords" content="турниры, настольный теннис, Санкт-Петербург, Арена Топ-Спин, соревнования, любительская лига">
+  <meta name="robots" content="index, follow">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+    }
+
+    /* Navbar */
+    .custom-navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-logo img {
+      height: 60px;
+      max-width: 100%;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-shrink: 1;
+      min-width: 0;
+      position: relative;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      color: #0055a4;
+    }
+
+    .contact-btn {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 0.6rem 1.8rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .contact-btn:hover {
+      background: #0055a4;
+      color: #ffffff;
+    }
+
+    .hamburger {
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      display: none;
+      margin-left: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .hamburger:hover {
+      transform: rotate(90deg);
+    }
+
+    .nav-utility {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    .nav-links li.dropdown:hover .dropdown-menu {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      padding: 0.75rem 0;
+      min-width: 300px;
+      z-index: 1001;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .dropdown-menu li {
+      padding: 0.5rem 1.5rem;
+    }
+
+    .dropdown-menu li a {
+      color: #333333;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 400;
+      display: block;
+      white-space: normal;
+      text-transform: uppercase;
+      transition: color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .dropdown-menu li a:hover {
+      color: #0055a4;
+      background: rgba(0, 85, 164, 0.1);
+    }
+
+    @media (max-width: 1024px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: rgba(0, 0, 0, 0.95);
+        width: 100%;
+        padding: 1.5rem;
+        gap: 1.5rem;
+        z-index: 999;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .nav-links.show {
+        display: flex !important;
+      }
+
+      .nav-links li a {
+        font-size: 1.2rem;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .nav-links li .dropdown-menu {
+        position: static;
+        background: #ffffff;
+        box-shadow: none;
+        padding: 0.5rem 1rem;
+        display: none;
+        min-width: 100%;
+        border-radius: 4px;
+      }
+
+      .nav-links li.show-submenu .dropdown-menu {
+        display: block;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .custom-navbar {
+        padding: 0.8rem 1.5rem;
+      }
+
+      .nav-logo img {
+        height: 50px;
+      }
+
+      .contact-btn {
+        padding: 0.5rem 1.5rem;
+        font-size: 1rem;
+      }
+    }
+
+    /* Content Sections */
+    .page-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .tournaments-section {
+      background: #f8faff;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: #1a1a1a;
+      border-bottom: 3px solid #0055a4;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      font-weight: 700;
+      color: #1a1a1a;
+      border-bottom: 3px solid #0055a4;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .tournament-intro {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .tournament-intro p {
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      font-weight: 400;
+      line-height: 1.8;
+      color: #333333;
+      margin-bottom: 1rem;
+    }
+
+    .tournament-intro a {
+      color: #0055a4;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .tournament-intro a:hover {
+      color: #4da8ff;
+      text-decoration: underline;
+    }
+
+    .tournament-intro strong {
+      color: #1a1a1a;
+    }
+
+    .tournaments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .tournament-card {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      background-size: cover;
+      background-position: center;
+      height: 350px;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .tournament-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    .tournament-content {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0));
+      width: 100%;
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    .tournament-logo {
+      width: 60px;
+      margin-bottom: 0.75rem;
+    }
+
+    .tournament-title {
+      font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+      color: #ffffff;
+    }
+
+    .tournament-description {
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      margin: 0;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    .tournament-info {
+      padding: 1.5rem;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .tournament-info p {
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      font-weight: 400;
+      line-height: 1.8;
+      color: #333333;
+      margin-bottom: 1rem;
+    }
+
+    .tournament-info ul {
+      list-style: none;
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .tournament-info ul li {
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      font-weight: 400;
+      line-height: 1.8;
+      color: #333333;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .tournament-info ul li::before {
+      content: '🏓';
+      position: absolute;
+      left: -1.5rem;
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+      .page-wrapper {
+        padding: 1.5rem;
+      }
+
+      .tournaments-section {
+        padding: 1.5rem;
+      }
+
+      h1, h2 {
+        font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+        text-align: center;
+      }
+
+      .tournament-intro, .tournament-info {
+        padding: 1rem;
+      }
+
+      .tournament-intro p, .tournament-info p, .tournament-info ul li {
+        font-size: clamp(0.9rem, 2vw, 1rem);
+      }
+
+      .tournaments-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+
+      .tournament-card {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-wrapper {
+        padding: 1rem;
+      }
+
+      .tournaments-section {
+        padding: 1rem;
+      }
+
+      .tournament-card {
+        height: 280px;
+      }
+
+      .tournament-title {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+      }
+
+      .tournament-description {
+        font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+      }
+    }
+
+    /* Footer */
+    .footer {
+      background: #1a1a1a;
+      padding: 4rem 2rem 2rem;
+      color: #e0e0e0;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-bottom: 2rem;
+    }
+
+    .footer-section {
+      text-align: left;
+    }
+
+    .footer-logo {
+      width: 150px;
+      margin-bottom: 1rem;
+    }
+
+    .footer-description {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: #bbbbbb;
+    }
+
+    .footer-section h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #4da8ff;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .footer-social a {
+      display: inline-block;
+    }
+
+    .footer-social img {
+      width: 32px;
+      height: 32px;
+      filter: brightness(0) invert(1);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .footer-social img:hover {
+      transform: scale(1.2);
+      filter: brightness(1) hue-rotate(200deg);
+    }
+
+    .footer-contact p {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-contact a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-contact a:hover {
+      color: #4da8ff;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #bbbbbb;
+      padding-top: 2rem;
+      border-top: 1px solid #333333;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        padding: 3rem 1.5rem 1.5rem;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-section {
+        text-align: center;
+      }
+
+      .footer-social {
+        justify-content: center;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="custom-navbar">
+    <div class="nav-logo">
+      <a href="index.html">
+        <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" loading="eager">
+      </a>
+    </div>
+    <ul class="nav-links" id="navLinks" role="navigation">
+      <li><a href="index.html">Главная</a></li>
+      <li><a href="players.html">Игроки</a></li>
+      <li class="dropdown">
+        <a href="aboutclub.html" aria-haspopup="true" aria-expanded="false">О клубе</a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Цены на услуги клуба настольного тенниса</a></li>
+          <li><a href="#">Расписание зала</a></li>
+          <li><a href="#">Подарочный сертификат</a></li>
+          <li><a href="#">Массаж</a></li>
+          <li><a href="#">Правила посещения</a></li>
+          <li><a href="#">Безопасность</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="tabletennis.html" aria-haspopup="true" aria-expanded="false">Настольный теннис</a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="about_table_tennis.html">О настольном теннисе</a></li>
+          <li><a href="table_tennis_club.html">Клуб настольного тенниса</a></li>
+          <li><a href="tables_rental.html">Аренда столов для настольного тенниса</a></li>
+          <li><a href="coaches.html">Тренеры по настольному теннису</a></li>
+          <li><a href="training_in_table_tennis.html">Тренировки по настольному теннису</a></li>
+          <li><a href="table_tennis_for_children.html">Настольный теннис для детей</a></li>
+          <li><a href="table_tennis_for_adults.html">Настольный теннис для взрослых</a></li>
+          <li><a href="tournaments.html">Турниры по настольному теннису</a></li>
+          <li><a href="corporate_table_tennis.html">Корпоративные мероприятия</a></li>
+          <li><a href="corp_com_tour.html">Корпоративный командный турнир</a></li>
+        </ul>
+      </li>
+      <li><a href="contacts.html">Контакты</a></li>
+      <li><a href="tournaments.html">Турниры</a></li>
+    </ul>
+    <div class="nav-utility">
+      <a href="contacts.html" class="contact-btn">Контакты</a>
+      <button class="hamburger" id="navToggle" aria-label="Открыть/закрыть меню навигации" aria-expanded="false">☰</button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <section class="tournaments-section">
+      <h1>Турниры по настольному теннису</h1>
+      <div class="tournament-intro">
+        <p>Вы можете подобрать себе турнир по клубному рейтингу.<br>
+           Результаты и текущую информацию по турнирам можно посмотреть на нашем <a href="https://vk.com/arena.topspin" target="_blank" aria-label="Посетить страницу ВКонтакте Арена Топ-Спин">сайте</a> или нашей странице <a href="https://vk.com/arena.topspin" target="_blank" aria-label="Посетить страницу ВКонтакте Арена Топ-Спин">ВКонтакте</a>.</p>
+        <p><strong>Главный судья:</strong> Лазер Игорь, WhatsApp: 
+           <a href="https://wa.me/79219428140" target="_blank" aria-label="Связаться с Игорем Лазером через WhatsApp">+7(921)900-50-91</a>, 
+           <a href="mailto:lazer.igor@gmail.com" aria-label="Написать Игорю Лазеру">lazer.igor@gmail.com</a>
+        </p>
+      </div>
+      <div class="tournaments-grid">
+        <a href="#" class="tournament-card" style="background-image: url('TOPSPIN/grigor.jpg');" aria-label="Подробнее о турнире Бешеный понедельник">
+          <div class="tournament-content">
+            <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="tournament-logo" loading="lazy">
+            <h3 class="tournament-title">Турнир «Бешеный понедельник»</h3>
+            <p class="tournament-description">Турнир участников с рейтингом TTW до 700. Проводится по понедельникам в 19:30.</p>
+          </div>
+        </a>
+        <a href="#" class="tournament-card" style="background-image: url('TOPSPIN/boll2.jpg');" aria-label="Подробнее о турнире Утренний интенсив">
+          <div class="tournament-content">
+            <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="tournament-logo" loading="lazy">
+            <h3 class="tournament-title">Турнир «Утренний интенсив»</h3>
+            <p class="tournament-description">Для спортсменов с рейтингом TTW до 450. Каждый вторник и четверг в 12:00.</p>
+          </div>
+        </a>
+        <a href="#" class="tournament-card" style="background-image: url('TOPSPIN/ruwen.jpg');" aria-label="Подробнее о турнире Воля к победе">
+          <div class="tournament-content">
+            <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="tournament-logo" loading="lazy">
+            <h3 class="tournament-title">Турнир «Воля к победе»</h3>
+            <p class="tournament-description">Для спортсменов с рейтингом TTW до 550. Каждый вторник в 19:30 и воскресенье в 12:00.</p>
+          </div>
+        </a>
+        <a href="#" class="tournament-card" style="background-image: url('TOPSPIN/suh.jpg');" aria-label="Подробнее о турнире Двойная Среда">
+          <div class="tournament-content">
+            <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="tournament-logo" loading="lazy">
+            <h3 class="tournament-title">Турнир «Двойная Среда»</h3>
+            <p class="tournament-description">Турнир с обсчётом рейтинга TTW! Каждую среду в 19:30.</p>
+          </div>
+        </a>
+        <a href="#" class="tournament-card" style="background-image: url('TOPSPIN/anders.jpg');" aria-label="Подробнее о турнире Лига Новичков">
+          <div class="tournament-content">
+            <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="tournament-logo" loading="lazy">
+            <h3 class="tournament-title">Турнир «Лига Новичков»</h3>
+            <p class="tournament-description">Для участников с рейтингом TTW от 0 до 300. Каждый четверг в 19:30 и воскресенье в 16:30.</p>
+          </div>
+        </a>
+        <a href="#" class="tournament-card" style="background-image: url('TOPSPIN/boll.jpg');" aria-label="Подробнее о Ветеранском турнире">
+          <div class="tournament-content">
+            <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="tournament-logo" loading="lazy">
+            <h3 class="tournament-title">Ветеранский турнир</h3>
+            <p class="tournament-description">Для спортсменов от 45 лет. Каждую пятницу в 12:00.</p>
+          </div>
+        </a>
+        <a href="#" class="tournament-card" style="background-image: url('TOPSPIN/hari.jpg');" aria-label="Подробнее о турнире По пятницам">
+          <div class="tournament-content">
+            <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="tournament-logo" loading="lazy">
+            <h3 class="tournament-title">Турнир «По пятницам»</h3>
+            <p class="tournament-description">Для спортсменов с рейтингом TTW до 450. Каждую пятницу в 19:30.</p>
+          </div>
+        </a>
+        <a href="#" class="tournament-card" style="background-image: url('TOPSPIN/backnina.jpg');" aria-label="Подробнее о турнире Стартуй в Топ-Спин">
+          <div class="tournament-content">
+            <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="tournament-logo" loading="lazy">
+            <h3 class="tournament-title">Турнир «Стартуй в Топ-Спин»</h3>
+            <p class="tournament-description">Спортсмены с рейтингом TTW до 650. Каждую субботу в 12:00.</p>
+          </div>
+        </a>
+        <a href="#" class="tournament-card" style="background-image: url('TOPSPIN/grigor.jpg');" aria-label="Подробнее о турнире К победе с Балтийским Берегом">
+          <div class="tournament-content">
+            <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="tournament-logo" loading="lazy">
+            <h3 class="tournament-title">Турнир «К победе с Балтийским Берегом»</h3>
+            <p class="tournament-description">Призовой фонд турнира 20000 рублей! Без ограничения по рейтингу. Каждую субботу в 17:00.</p>
+          </div>
+        </a>
+        <a href="#" class="tournament-card" style="background-image: url('TOPSPIN/jang.jpg');" aria-label="Подробнее о Любительской лиге">
+          <div class="tournament-content">
+            <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="tournament-logo" loading="lazy">
+            <h3 class="tournament-title">Любительская лига</h3>
+            <p class="tournament-description">Любительская лига.</p>
+          </div>
+        </a>
+      </div>
+      <div class="tournament-info">
+        <p>Спортивный клуб «Арена Топ-Спин» проводит турниры для любителей и профессионалов и приглашает поучаствовать в соревнованиях, которые помогут лучше узнать свой уровень игры и выявить лучшего спортсмена в своей категории. На наших турнирах вы сможете набраться опыта и повысить свой уровень мастерства благодаря участию разных игроков, имеющих свой собственный стиль игры в настольный теннис.</p>
+        <p>К вашему вниманию предлагается несколько различных турниров для спортсменов разного уровня. На наших турнирах вы можете выиграть приз из призового фонда, который формируют сами участники или спонсоры турнира. Турниры по настольному теннису для спортсменов из Санкт-Петербурга, Ленинградской области и Северо-Западного региона России позволят развить свою скорость и силу, а также пообщаться с другими любителями и профессионалами настольного тенниса. За первые три места предусмотрены денежные призы, которые распределяются соответственно.</p>
+        <h2>Преимущества всех турниров в нашем клубе</h2>
+        <ul>
+          <li>Получить опыт игры с равными или более сильными игроками.</li>
+          <li>Почувствовать накал борьбы и проявить волю к победе.</li>
+          <li>Подкрепиться в фитнес-баре.</li>
+          <li>Посетить сауну и расслабиться после напряжённого турнира.</li>
+          <li>Раздевалки и душевые для освежения до и после матчей.</li>
+        </ul>
+        <p>Все ваши соперники будут рады возможности научиться чему-нибудь новому так же, как и вы научитесь у них. Добраться до нашего клуба достаточно просто — можно как городским транспортом, так и самостоятельно.</p>
+        <h2>Другие турниры</h2>
+        <p>Наши турниры по настольному теннису для детей и взрослых позволят развиться до российского уровня игры, это даёт возможность пройти в профессиональную лигу игроков настольного тенниса. В клубе «Арена Топ-Спин» проходят соревнования с участием опытных мастеров, которые являются допуском к участию в чемпионатах России.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <img src="TOPSPIN/logo_arena.png" alt="Арена Топ-Спин" class="footer-logo" loading="lazy">
+        <p class="footer-description">
+          Арена Топ-Спин – ваш центр настольного тенниса, где страсть к игре сочетается с первоклассным оборудованием и профессиональным коучингом.
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3>Быстрые ссылки</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="aboutclub.html">О клубе</a></li>
+          <li><a href="tabletennis.html">Настольный теннис</a></li>
+          <li><a href="tournaments.html">Турниры</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Контакты</h3>
+        <div class="footer-contact">
+          <p>Спортивный клуб «Арена Топ-Спин»</p>
+          <p>СПб, Левашовский пр., д. 13 А</p>
+          <p>Тел: <a href="tel:+78129428140" aria-label="Позвонить в Арена Топ-Спин">+7(812) 942-81-40</a></p>
+        </div>
+        <div class="footer-social">
+          <a href="https://vk.com/arena.topspin"><img src="TOPSPIN/vk-icon.svg" alt="VK" loading="lazy"></a>
+          <a href="https://www.instagram.com/scarenatopspin/"><img src="TOPSPIN/instagram-icon.svg" alt="Instagram" loading="lazy"></a>
+          <a href="https://www.youtube.com/channel/UCcJzy5K9osLLIifcMEmG4xw"><img src="TOPSPIN/youtube-icon.svg" alt="YouTube" loading="lazy"></a>
+          <a href="https://wa.me/79219428140"><img src="TOPSPIN/whatsapp-icon.svg" alt="WhatsApp" loading="lazy"></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      2005-2025 © Все права защищены. Лицензирование
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Navbar functionality
+      const hamburger = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+      const dropdowns = document.querySelectorAll('.nav-links li.dropdown');
+
+      hamburger.addEventListener('click', () => {
+        const isExpanded = navLinks.classList.toggle('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+      });
+
+      dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('a');
+        dropdown.addEventListener('click', (e) => {
+          if (window.innerWidth <= 1024) {
+            e.preventDefault();
+            const isActive = dropdown.classList.contains('show-submenu');
+            dropdowns.forEach(d => d.classList.remove('show-submenu'));
+            if (!isActive) {
+              dropdown.classList.add('show-submenu');
+              link.setAttribute('aria-expanded', 'true');
+            } else {
+              link.setAttribute('aria-expanded', 'false');
+            }
+          }
+        });
+      });
+
+      window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.custom-navbar');
+        if (window.scrollY > 50) {
+          navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+        } else {
+          navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
